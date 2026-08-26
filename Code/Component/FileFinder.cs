@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Submitter.Code.Component;
+using Submitter.Code.Manager;
 
-namespace Submitter
+namespace Submitter.Code.Component
 {
     public class FileFinder
     {
@@ -56,7 +56,7 @@ namespace Submitter
             DirectoryInfo dir = file.getDirectoryInfoServer(matchName);
             FileSystemInfo[] info = dir.GetFileSystemInfos();
             string result = findPath(matchName, matchName, info, file, name);
-            if(result == "") Log.information($"cannot find file {name}");
+            if (result == "") Log.information($"cannot find file {name}");
             else Log.information($"find file in path {result}");
             return result;
         }

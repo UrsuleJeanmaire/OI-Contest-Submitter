@@ -1,6 +1,7 @@
 ﻿using Submitter.Code.Component;
+using Submitter.Code.Manager;
 
-namespace Submitter.Command
+namespace Submitter.Code.Command
 {
     internal class SubmitCode
     {
@@ -19,8 +20,8 @@ namespace Submitter.Command
         internal static bool handle(string competition, string name, string path, FileManager file)
         {
             bool flag = false;
-            foreach(var x in JoinCompetition.problemName)
-                if(x == name) { flag = true; break; }
+            foreach (var x in JoinCompetition.problemName)
+                if (x == name) { flag = true; break; }
             if (!flag)
                 return false;
 
@@ -57,7 +58,7 @@ namespace Submitter.Command
                 Displayer.output(ex.Message, textColor: ConsoleColor.Red, final: '\n');
                 return true;
             }
-            RETRY:
+        RETRY:
             int cntr = 0;
             try
             {

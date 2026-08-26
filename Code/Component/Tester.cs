@@ -1,30 +1,28 @@
 ﻿using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
 using Submitter.Code.Ability;
-using Submitter.Code.Component;
 using Submitter.Code.Data;
+using Submitter.Code.Manager;
 
-namespace Submitter
+namespace Submitter.Code.Component
 {
     public static class ClipboardHelper
     {
         [DllImport("user32.dll")]
-        private static extern bool OpenClipboard(IntPtr hWndNewOwner);
+        private static extern bool OpenClipboard(nint hWndNewOwner);
         [DllImport("user32.dll")]
         private static extern bool CloseClipboard();
         [DllImport("user32.dll")]
         private static extern bool EmptyClipboard();
         [DllImport("user32.dll")]
-        private static extern IntPtr SetClipboardData(uint uFormat, IntPtr hMem);
+        private static extern nint SetClipboardData(uint uFormat, nint hMem);
         [DllImport("kernel32.dll")]
-        private static extern IntPtr GlobalAlloc(uint uFlags, UIntPtr dwBytes);
+        private static extern nint GlobalAlloc(uint uFlags, nuint dwBytes);
         [DllImport("kernel32.dll")]
-        private static extern IntPtr GlobalLock(IntPtr hMem);
+        private static extern nint GlobalLock(nint hMem);
         [DllImport("kernel32.dll")]
-        private static extern bool GlobalUnlock(IntPtr hMem);
+        private static extern bool GlobalUnlock(nint hMem);
         [DllImport("user32.dll")]
-        private static extern IntPtr GetOpenClipboardWindow();
+        private static extern nint GetOpenClipboardWindow();
         private const uint CF_UNICODETEXT = 13;
         private const uint GMEM_MOVEABLE = 0x0002;
         public static bool TrySetText(string text, int timeoutMs = 5000)
@@ -33,16 +31,16 @@ namespace Submitter
             int elapsed = 0;
             while (elapsed < timeoutMs)
             {
-                if (OpenClipboard(IntPtr.Zero))
+                if (OpenClipboard(nint.Zero))
                 {
                     try
                     {
                         EmptyClipboard();
                         byte[] bytes = System.Text.Encoding.Unicode.GetBytes(text + "\0");
-                        IntPtr hGlobal = GlobalAlloc(GMEM_MOVEABLE, (UIntPtr)bytes.Length);
-                        if (hGlobal == IntPtr.Zero) return false;
-                        IntPtr locked = GlobalLock(hGlobal);
-                        if (locked == IntPtr.Zero) { GlobalFree(hGlobal); return false; }
+                        nint hGlobal = GlobalAlloc(GMEM_MOVEABLE, (nuint)bytes.Length);
+                        if (hGlobal == nint.Zero) return false;
+                        nint locked = GlobalLock(hGlobal);
+                        if (locked == nint.Zero) { GlobalFree(hGlobal); return false; }
                         Marshal.Copy(bytes, 0, locked, bytes.Length);
                         GlobalUnlock(hGlobal);
                         SetClipboardData(CF_UNICODETEXT, hGlobal);
@@ -59,9 +57,9 @@ namespace Submitter
             return false;
         }
         [DllImport("user32.dll")]
-        private static extern int GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+        private static extern int GetWindowThreadProcessId(nint hWnd, out uint lpdwProcessId);
         [DllImport("kernel32.dll")]
-        private static extern IntPtr GlobalFree(IntPtr hMem);
+        private static extern nint GlobalFree(nint hMem);
     }
     internal class Tester
     {

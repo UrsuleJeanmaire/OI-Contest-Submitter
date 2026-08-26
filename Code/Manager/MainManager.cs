@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 using Submitter.Code.Ability;
+using Submitter.Code.Command;
 using Submitter.Code.Component;
 using Submitter.Code.Data;
-using Submitter.Command;
 
-namespace Submitter
+namespace Submitter.Code.Manager
 {
     internal class MainManager
     {
@@ -89,7 +89,7 @@ namespace Submitter
                 }
                 string name = each[1] + ".rec";
                 string result = FileFinder.getPath(inMatch, name, file);
-                if(result == "")
+                if (result == "")
                 {
                     Displayer.output("该提交记录不存在", textColor: ConsoleColor.Red, final: '\n');
                     return false;
@@ -113,7 +113,7 @@ namespace Submitter
                 }
                 string name = each[1] + ".rec";
                 string result = FileFinder.getPath(inMatch, name, file);
-                if(result == "")
+                if (result == "")
                 {
                     Displayer.output("该提交记录不存在", textColor: ConsoleColor.Red, final: '\n');
                     return false;
@@ -121,7 +121,7 @@ namespace Submitter
                 Tester.singleTest(inMatch, each[1], file);
                 return true;
             }
-            Displayer.output("未找到对应命令，或许您需要help？", final : '\n');
+            Displayer.output("未找到对应命令，或许您需要help？", final: '\n');
             return false;
         }
         public void start()

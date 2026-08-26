@@ -1,6 +1,8 @@
 ﻿using Submitter.Code.Component;
+using Submitter.Code.Manager;
 
-namespace Submitter{
+namespace Submitter
+{
     class Submitter
     {
         static MainManager mainThread = new();

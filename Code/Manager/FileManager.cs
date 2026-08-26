@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq.Expressions;
 using Submitter.Code.Component;
 
-namespace Submitter
+namespace Submitter.Code.Manager
 {
     internal class FileManager
     {
@@ -17,7 +17,7 @@ namespace Submitter
             Displayer.output("\t输入服务器密码："); password = Console.ReadLine();
             Displayer.output("\t输入你的名字："); name = Console.ReadLine();
             Displayer.output("\t输入下载文件的保存路径："); savePath = Console.ReadLine();
-            if(File.Exists(Constant.settingPath)) File.Delete(Constant.settingPath);
+            if (File.Exists(Constant.settingPath)) File.Delete(Constant.settingPath);
             FileStream fs = File.Create(Constant.settingPath);
             IOManager.WriteLine(fs, ip);
             IOManager.WriteLine(fs, user);
@@ -159,7 +159,7 @@ namespace Submitter
             Retry:
             if (!loadSetting())
             {
-                Displayer.output("输入的配置无效，请重试" +"", textColor: ConsoleColor.Red, final: '\n');
+                Displayer.output("输入的配置无效，请重试" + "", textColor: ConsoleColor.Red, final: '\n');
                 initSetting();
                 goto Retry;
             }

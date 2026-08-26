@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Submitter.Code.Ability;
 using Submitter.Code.Component;
 using Submitter.Code.Data;
+using Submitter.Code.Manager;
 
-namespace Submitter.Command
+namespace Submitter.Code.Command
 {
     internal class ShowRecords
     {
@@ -54,7 +55,7 @@ namespace Submitter.Command
         }
         internal static void handleHost(string matchName, FileManager file)
         {
-            if(matchName == "")
+            if (matchName == "")
             {
                 Displayer.output("还未加入比赛", textColor: ConsoleColor.Red, final: '\n');
                 return;
@@ -63,12 +64,12 @@ namespace Submitter.Command
             DirectoryInfo dir = file.getDirectoryInfoFullPath(userPath);
             FileSystemInfo[] info = dir.GetFileSystemInfos();
             List<FileInfo> all = new();
-            foreach(FileSystemInfo child in info)
+            foreach (FileSystemInfo child in info)
             {
                 if (child is not DirectoryInfo) continue;
                 DirectoryInfo nxtDir = file.getDirectoryInfoFullPath(child.FullName);
                 FileSystemInfo[] nxtInfo = nxtDir.GetFileSystemInfos();
-                foreach(FileSystemInfo childchild in nxtInfo)
+                foreach (FileSystemInfo childchild in nxtInfo)
                 {
                     if (childchild.Name != "#record") continue;
                     DirectoryInfo newDir = file.getDirectoryInfoFullPath(childchild.FullName);

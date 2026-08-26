@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Submitter.Code.Component;
 using Submitter.Code.Data;
+using Submitter.Code.Manager;
 
 namespace Submitter.Code.Ability
 {

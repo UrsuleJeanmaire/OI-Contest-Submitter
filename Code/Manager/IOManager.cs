@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Submitter.Code.Component;
 
-namespace Submitter
+namespace Submitter.Code.Manager
 {
     internal class IOManager
     {

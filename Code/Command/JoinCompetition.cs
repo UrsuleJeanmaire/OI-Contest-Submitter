@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Submitter.Code.Component;
+using Submitter.Code.Manager;
 
-namespace Submitter.Command
+namespace Submitter.Code.Command
 {
     internal class JoinCompetition
     {
@@ -23,7 +24,7 @@ namespace Submitter.Command
                     if (child.Name == "!solution") Displayer.output("题解已检测", textColor: ConsoleColor.Green, final: '\n');
                     else
                     {
-                        if(!problemName.Contains(child.Name)) problemName.Add(child.Name);
+                        if (!problemName.Contains(child.Name)) problemName.Add(child.Name);
                         Displayer.output("题目" + child.Name + "已检测", textColor: ConsoleColor.Green, final: '\n');
                     }
                     file.createDirectoryLocal(parentPath + "\\" + child.Name);
@@ -66,7 +67,7 @@ namespace Submitter.Command
                 return;
             }
             int cnt = 0, success_count = 0;
-            if(!isInside && cnt == 0)
+            if (!isInside && cnt == 0)
             {
                 DirectoryInfo dir = file.getDirectoryInfoServer(matchname);
                 FileSystemInfo[] info = dir.GetFileSystemInfos();
