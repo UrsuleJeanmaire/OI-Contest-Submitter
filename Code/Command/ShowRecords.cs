@@ -60,6 +60,11 @@ namespace Submitter.Code.Command
                 Displayer.output("还未加入比赛", textColor: ConsoleColor.Red, final: '\n');
                 return;
             }
+            if (!Directory.Exists(file.ip + "\\" + matchName + "\\#submit"))
+            {
+                file.createDirectoryFullPath(file.ip + "\\" + matchName + "\\#submit");
+                return;
+            }
             string userPath = file.ip + "\\" + matchName + "\\#submit";
             DirectoryInfo dir = file.getDirectoryInfoFullPath(userPath);
             FileSystemInfo[] info = dir.GetFileSystemInfos();
